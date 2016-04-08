@@ -1,0 +1,69 @@
+<md-toolbar layout="column">
+      <div class="md-toolbar-tools">
+        <h1>Passo 1</h1>
+      </div>
+    </md-toolbar>
+
+    <div layout="column" flex>
+      <md-content layout-padding>
+        <form name="regForm">
+          <!-- PASSO 1 -->
+          <section class="passo" >
+            <div layout layout-sm="column">
+              <md-input-container flex>
+                <label>Nome</label>
+                <input ng-model="user.nome_responsavel" required>
+                </md-input-container>
+            </div>
+            <div layout layout-sm="column">
+              <md-input-container flex>
+                <label>E-mail</label>
+                <input type="email" ng-model="user.email_empresa" required>
+              </md-input-container>
+            </div>
+            <div layout layout-sm="column">
+              <md-input-container flex>
+                <label>Telefone (opcional)</label>
+                <input ng-model="user.telefone_empresa" type="phone">
+              </md-input-container>
+          </div>
+           <md-button ng-click="submit()" class="md-raised md-primary" ng-disabled="regForm.$invalid">Continuar</md-button>
+        </section><!-- end PASSO1 01 -->
+
+          <!-- PASSO 2 -->
+          <section class="passo" >
+            <div layout layout-sm="column">
+              <md-input-container flex>
+                <label>Nome do Sistema</label>
+                <input ng-model="user.endereco_sistema" required md-minlength="3" md-maxlength="16">
+                <div class="hint">https://app.tagplus/com.br/{{user.endereco_sistema}}</div>
+                </md-input-container>
+            </div>
+           <md-button ng-click="submit()" class="md-raised md-primary" ng-disabled="regForm.$invalid">Continuar</md-button>
+        </section><!-- end PASSO1 02 -->
+
+          <!-- PASSO 3 -->
+          <section class="passo" >
+            <div layout layout-sm="column">
+              <md-input-container flex>
+                <label>Nome</label>
+                <input ng-model="user.nome_responsavel" required>
+                </md-input-container>
+            </div>
+            <div layout layout-sm="column">
+              <md-input-container flex>
+                <label>E-mail</label>
+                <input type="email" ng-model="user.email_empresa" required>
+              </md-input-container>
+            </div>
+            <div layout layout-sm="column">
+              <md-input-container flex>
+                <label>Telefone (opcional)</label>
+                <input ng-model="user.telefone_empresa" type="phone">
+              </md-input-container>
+          </div>
+           <md-button ng-click="submit()" class="md-raised md-primary" ng-disabled="regForm.$invalid">Instalar</md-button>
+        </section><!-- end PASSO1 03 -->
+       </form>
+     </md-content>
+   </div>

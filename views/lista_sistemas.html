@@ -1,0 +1,40 @@
+   <md-toolbar layout="column">
+         <div class="md-toolbar-tools">
+           <h1>Pesquisar</h1>
+         </div>
+       </md-toolbar>
+
+       <div layout="column" flex>
+         <md-content layout-padding>
+           <form name="regForm">
+             <!-- SEARCH -->
+             <section class="passo" >
+               <div layout="column">
+                 <md-input-container>
+                   <label>E-mail</label>
+                   <input type="email" ng-model="user.email_empresa" required>
+                 </md-input-container>
+               </div>
+                 <md-button ng-click="" class="md-raised md-primary" ng-disabled="regForm.$invalid">Pesquisar</md-button>
+
+           </section><!-- end SEARCH -->
+          </form>
+
+          <section layout="row">
+          <md-card flex="20">
+              <md-card-content>
+                <h2>{{user.sistema}}lhenrique</h2>
+              </md-card-content>
+              <md-card-actions layout="row" layout-align="start center">
+            <md-button>Acessar</md-button>
+            <md-card-icon-actions>
+              <md-button class="md-icon-button" aria-label="icon">
+                <md-icon md-svg-icon="icon"></md-icon>
+              </md-button>
+            </md-card-icon-actions>
+          </md-card-actions>
+           </md-card>
+         </section>
+
+        </md-content>
+      </div>
