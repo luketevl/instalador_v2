@@ -1,50 +1,82 @@
-<section flex ng-controller="AppCtrl">
-  <div layout="row">
-    <section flex>
-      <md-card>
-         <md-card-content>
-           <h2>Informações de Pagamento</h2>
-             <md-list-item class="md-2-line" ng-repeat="item in admin" role="link" md-ink-ripple>
-               <md-icon md-svg-icon="{{item.icon}}" aria-label="{{item.title}}"></md-icon>
-               <div class="md-list-item-text">
-                 <span class="md-body-2">{{item.title}}</span>
-               </div>
-               <md-divider></md-divider>
-             </md-list-item>
-       </md-card-content>
-      </md-card>
-    </section>
-    <section flex>
-      <div layout="column" >
-        <section flex>
-          <md-card>
-             <md-card-content>
-               <h2>Dados Contrato</h2>
-                 <md-list-item class="md-2-line" ng-repeat="item in admin" role="link" md-ink-ripple>
-                   <md-icon md-svg-icon="{{item.icon}}" aria-label="{{item.title}}"></md-icon>
-                   <div class="md-list-item-text">
-                     <span class="md-body-2">{{item.title}}</span>
-                   </div>
-                   <md-divider></md-divider>
-                 </md-list-item>
-           </md-card-content>
-          </md-card>
-        </section>
-        <section flex>
-          <md-card>
-             <md-card-content>
-               <h2>Últimos débitos e créditos</h2>
-                 <md-list-item class="md-2-line" ng-repeat="item in admin" role="link" md-ink-ripple>
-                   <md-icon md-svg-icon="{{item.icon}}" aria-label="{{item.title}}"></md-icon>
-                   <div class="md-list-item-text">
-                     <span class="md-body-2">{{item.title}}</span>
-                   </div>
-                   <md-divider></md-divider>
-                 </md-list-item>
-           </md-card-content>
-          </md-card>
-        </section>
-      </div>
+<section flex ng-controller="AppCtrl"  layout="row"  layout-xs="column">
+  <section>
+    <md-card>
+       <md-card-content>
+         <h2>Informações de Pagamento</h2>
+           <md-list-item class="md-2-line" ng-repeat="item in admin" role="link" md-ink-ripple>
+             <md-icon md-svg-icon="{{item.icon}}" aria-label="{{item.title}}"></md-icon>
+             <div class="md-list-item-text">
+               <span class="md-body-2">{{item.title}}</span>
+             </div>
+             <md-divider></md-divider>
+           </md-list-item>
+     </md-card-content>
+    </md-card>
   </section>
-  </div>
+
+    <div layout="column" flex>
+      <section>
+        <md-card>
+           <md-card-content>
+             <h2>Dados Contrato</h2>
+             <hgroup layout="row">
+               <h4 class="md-body-1">Vencimento</h4>
+               <h5 class="md-body-3"><time datetime="2008-02-14 20:00">10/09/2016</time></h5>
+            </hgroup>
+         </md-card-content>
+        </md-card>
+      </section>
+
+      <section>
+        <md-card>
+           <md-card-content>
+            <h2>Últimos débitos e créditos</h2>
+
+            <!-- CUPOM -->
+            <section>
+               <form name="formCupom" layout="row">
+                     <md-input-container flex="80">
+                       <label>Cupom Desconto</label>
+                       <input type="text" ng-model="cupom_desconto" required>
+                     </md-input-container>
+                    <md-input-container>
+                      <md-button ng-click="" class="md-raised md-primary" ng-disabled="formCupom.$invalid">Calcular</md-button>
+                    </md-input-container>
+              </form>
+            </section><!-- end CUPOM -->
+
+            <!-- LISTAGEM CREDITOS E DEBITOS -->
+            <section layout="row" layout-align="end" flex>
+              <md-content layout="column" flex>
+                <h2>Débitos e Créditos</h2>
+                  <md-virtual-repeat-container id="vertical-container">
+                    <section class="repeated-item" md-virtual-repeat="i in admin" flex>
+                        <div>
+                          {{i.title}}
+                        </div>
+                    </section>
+                  </md-virtual-repeat-container>
+                </md-content>
+            </section> <!-- end LISTAGEM CREDITOS E DEBITOS -->
+
+            <!-- PAGAMENTO AVULSO -->
+            <section layout="row" layout-align="end">
+              <form name="formAvulso">
+                  <md-input-container flex="20">
+                    <label>Valor</label>
+                    <input type="number" step="0.01" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="vr_avulso" required>
+                    <div ng-messages="passoDadosPrincipais.user.email_empresa.$error">
+                      <div ng-message="ng-pattern">Formato deve ser 0.01</div>
+                    </div>
+                  </md-input-container>
+                 <md-input-container flex>
+                   <md-button ng-click="" class="md-raised md-primary" ng-disabled="formAvulso.$invalid">Gerar Pagamento Avulso</md-button>
+                 </md-input-container>
+              </form>
+          </section><!-- end PAGAMENTO AVULSO -->
+
+             </md-card-content>
+        </md-card>
+      </section>
+    </div>
 </section>

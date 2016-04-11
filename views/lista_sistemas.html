@@ -13,9 +13,12 @@
                  <md-input-container>
                    <label>E-mail</label>
                    <input type="email" ng-model="user.email_empresa" required>
+                   <div ng-messages="passoDadosPrincipais.user.email_empresa.$error">
+                     <div ng-message="type">Por Favor Preencha um e-mail válido</div>
+                   </div>
                  </md-input-container>
                </div>
-                 <md-button ng-click="" class="md-raised md-primary" ng-disabled="regForm.$invalid">Pesquisar</md-button>
+                 <md-button ng-click="verificaDisponibilidade(user.email_empresa)" class="md-raised md-primary" ng-disabled="regForm.$invalid">Pesquisar</md-button>
 
            </section><!-- end SEARCH -->
           </form>

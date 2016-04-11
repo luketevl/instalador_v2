@@ -1,69 +1,108 @@
 <md-toolbar layout="column">
       <div class="md-toolbar-tools">
-        <h1>Passo 1</h1>
+        <h1>{{titulo}}</h1>
       </div>
     </md-toolbar>
 
     <div layout="column" flex>
       <md-content layout-padding>
-        <form name="regForm">
+        <form name="passoDadosPrincipais">
           <!-- PASSO 1 -->
-          <section class="passo" >
+          <section class="passo" ng-show="dadosPassos[1].show">
             <div layout layout-sm="column">
               <md-input-container flex>
                 <label>Nome</label>
-                <input ng-model="user.nome_responsavel" required>
+                <input type="text" ng-model="user.nome_responsavel" required autofocus>
+                <div ng-messages="passoDadosPrincipais.user.nome_responsavel.$error">
+                  <div ng-message="required">Campo Obrigatório</div>
+                </div>
                 </md-input-container>
             </div>
             <div layout layout-sm="column">
               <md-input-container flex>
                 <label>E-mail</label>
                 <input type="email" ng-model="user.email_empresa" required>
+                <div ng-messages="passoDadosPrincipais.user.email_empresa.$error">
+                  <div ng-message="required">Campo Obrigatório</div>
+                  <div ng-message="type">Por Favor Preencha um e-mail válido</div>
+                </div>
               </md-input-container>
             </div>
             <div layout layout-sm="column">
               <md-input-container flex>
                 <label>Telefone (opcional)</label>
                 <input ng-model="user.telefone_empresa" type="phone">
+                <div ng-messages="passoDadosPrincipais.user.telefone_empresa.$error">
+                  <div ng-message="required">Campo Obrigatório</div>
+                  <div ng-message="type">Por Favor Preencha um telefone válido</div>
+                </div>
               </md-input-container>
           </div>
-           <md-button ng-click="submit()" class="md-raised md-primary" ng-disabled="regForm.$invalid">Continuar</md-button>
+           <md-button ng-click="tooglePassos(1, 2)" class="md-raised md-primary" ng-disabled="passoDadosPrincipais.$invalid">Continuar</md-button>
         </section><!-- end PASSO1 01 -->
+      </form>
+      <!-- PASSO 2 -->
+      <section class="passo" ng-show="dadosPassos[2].show">
+        <form name="passoSistema">
+              <div layout layout-sm="column">
+                <md-input-container flex>
+                  <label>Nome do Sistema</label>
+                  <input ng-model-options="{ }" ng-model="user.endereco_sistema" ng-keyup="verificaDisponibilidade(user.endereco_sistema)" required md-minlength="3" md-maxlength="16">
+                  <div class="hint">https://app.tagplus/com.br/{{user.endereco_sistema}}</div>
+                  <div ng-messages="passoSistema.user.endereco_sistema.$error">
+                    <div ng-message="required">Campo Obrigatório</div>
+                    <div ng-message="md-maxlength">Preencha no máximo 16 caracteres</div>
+                    <div ng-message="md-minlength">Preencha no mínimo 3 caracteres</div>
+                  </div>
+                  </md-input-container>
+              </div>
+            <md-button ng-click="tooglePassos(2, 1)" class="md-raised md-button">Voltar</md-button>
+            <md-button ng-click="tooglePassos(2, 3)" class="md-raised md-primary" ng-disabled="passoSistema.$invalid || !disponivelSistema">Continuar</md-button>
+        </form>
+    </section><!-- end PASSO 02 -->
 
-          <!-- PASSO 2 -->
-          <section class="passo" >
-            <div layout layout-sm="column">
-              <md-input-container flex>
-                <label>Nome do Sistema</label>
-                <input ng-model="user.endereco_sistema" required md-minlength="3" md-maxlength="16">
-                <div class="hint">https://app.tagplus/com.br/{{user.endereco_sistema}}</div>
-                </md-input-container>
-            </div>
-           <md-button ng-click="submit()" class="md-raised md-primary" ng-disabled="regForm.$invalid">Continuar</md-button>
-        </section><!-- end PASSO1 02 -->
-
+    <section class="passo" ng-show="dadosPassos[3].show">
+      <form name="passoUsuarioSistema">
           <!-- PASSO 3 -->
-          <section class="passo" >
             <div layout layout-sm="column">
               <md-input-container flex>
-                <label>Nome</label>
-                <input ng-model="user.nome_responsavel" required>
+                <label>Nome do Usuário</label>
+                <input type="text" ng-model="user.login" ng-focus="true" required md-minlength="3" md-maxlength="16">
+                <div ng-messages="passoUsuarioSistema.user.login.$error">
+                  <div ng-message="required">Campo Obrigatório</div>
+                  <div ng-message="md-maxlength">Preencha no máximo 16 caracteres</div>
+                  <div ng-message="md-minlength">Preencha no mínimo 3 caracteres</div>
+                </div>
                 </md-input-container>
             </div>
             <div layout layout-sm="column">
               <md-input-container flex>
-                <label>E-mail</label>
-                <input type="email" ng-model="user.email_empresa" required>
+                <label>Senha</label>
+                <input type="password" ng-model="user.senha" required md-minlength="3" md-maxlength="16">
+                <div ng-messages="passoUsuarioSistema.user.senha.$error">
+                  <div ng-message="required">Campo Obrigatório</div>
+                  <div ng-message="md-maxlength">Preencha no máximo 16 caracteres</div>
+                  <div ng-message="md-minlength">Preencha no mínimo 3 caracteres</div>
+                </div>
               </md-input-container>
             </div>
             <div layout layout-sm="column">
               <md-input-container flex>
-                <label>Telefone (opcional)</label>
-                <input ng-model="user.telefone_empresa" type="phone">
+                <label>Confirmar Senha</label>
+                <input type="password" ng-model="user.confirma_senha" required md-minlength="3" md-maxlength="16" ng-pattern="\b{{user.senha}}\b">
+                <div ng-messages="passoUsuarioSistema.user.confirma_senha.$error.pattern">
+                  <div ng-message="ng-pattern">Confirmação de Senha não confere</div>
+                </div>
+                <div ng-messages="passoUsuarioSistema.user.confirma_senha.$error">
+                  <div ng-message="required">Campo Obrigatório</div>
+                  <div ng-message="md-maxlength">Preencha no máximo 16 caracteres</div>
+                  <div ng-message="md-minlength">Preencha no mínimo 3 caracteres</div>
+                </div>
               </md-input-container>
-          </div>
-           <md-button ng-click="submit()" class="md-raised md-primary" ng-disabled="regForm.$invalid">Instalar</md-button>
-        </section><!-- end PASSO1 03 -->
+            </div>
+            <md-button ng-click="tooglePassos(3, 2)" class="md-raised md-button">Voltar</md-button>
+           <md-button class="md-raised md-primary" ng-disabled="passoUsuarioSistema.$invalid">Instalar</md-button>
        </form>
+     </section><!-- end PASSO1 03 -->
      </md-content>
    </div>
