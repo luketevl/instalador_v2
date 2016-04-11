@@ -21,7 +21,7 @@ angular.module('gerenciadorErp').controller('AppCtrl', ['$scope', '$mdBottomShee
     icon: 'social:ic_group_24px'
   }];
   $scope.admin = [{
-    link: '',
+    link: '#/meu_plano',
     title: 'Meu Plano',
     icon: 'action:ic_delete_24px'
   }, {

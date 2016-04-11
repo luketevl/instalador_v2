@@ -1,0 +1,50 @@
+<section flex ng-controller="AppCtrl">
+  <div layout="row">
+    <section flex>
+      <md-card>
+         <md-card-content>
+           <h2>Informações de Pagamento</h2>
+             <md-list-item class="md-2-line" ng-repeat="item in admin" role="link" md-ink-ripple>
+               <md-icon md-svg-icon="{{item.icon}}" aria-label="{{item.title}}"></md-icon>
+               <div class="md-list-item-text">
+                 <span class="md-body-2">{{item.title}}</span>
+               </div>
+               <md-divider></md-divider>
+             </md-list-item>
+       </md-card-content>
+      </md-card>
+    </section>
+    <section flex>
+      <div layout="column" >
+        <section flex>
+          <md-card>
+             <md-card-content>
+               <h2>Dados Contrato</h2>
+                 <md-list-item class="md-2-line" ng-repeat="item in admin" role="link" md-ink-ripple>
+                   <md-icon md-svg-icon="{{item.icon}}" aria-label="{{item.title}}"></md-icon>
+                   <div class="md-list-item-text">
+                     <span class="md-body-2">{{item.title}}</span>
+                   </div>
+                   <md-divider></md-divider>
+                 </md-list-item>
+           </md-card-content>
+          </md-card>
+        </section>
+        <section flex>
+          <md-card>
+             <md-card-content>
+               <h2>Últimos débitos e créditos</h2>
+                 <md-list-item class="md-2-line" ng-repeat="item in admin" role="link" md-ink-ripple>
+                   <md-icon md-svg-icon="{{item.icon}}" aria-label="{{item.title}}"></md-icon>
+                   <div class="md-list-item-text">
+                     <span class="md-body-2">{{item.title}}</span>
+                   </div>
+                   <md-divider></md-divider>
+                 </md-list-item>
+           </md-card-content>
+          </md-card>
+        </section>
+      </div>
+  </section>
+  </div>
+</section>
