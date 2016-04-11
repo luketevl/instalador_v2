@@ -3,7 +3,7 @@ angular.module('gerenciadorErp').config(function($routeProvider){
   // ROTA MEU PLANO
   $routeProvider.when('/meu_plano', {
     templateUrl: 'views/meu_plano.html',
-    controller: 'AppCtrl',
+    controller: 'meuPlanoController',
   });
 
   // ROTA NOVO SISTEMA
@@ -15,7 +15,7 @@ angular.module('gerenciadorErp').config(function($routeProvider){
   // ROTA LISTAGEM DE SISTEMAS
   $routeProvider.when('/lista_sistemas', {
     templateUrl: 'views/lista_sistemas.html',
-    controller: 'checkoutController',
+    controller: 'listarSistemasController',
   });
 
 

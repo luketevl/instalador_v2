@@ -88,6 +88,8 @@ angular.module('gerenciadorErp').controller('AppCtrl', ['$scope', '$mdBottomShee
         $scope.alert = 'You cancelled the dialog.';
       });
   };
+
+
 }]);
 
 

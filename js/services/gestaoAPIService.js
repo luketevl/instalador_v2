@@ -1,10 +1,10 @@
 // Criando Serviço de Comunicação com o Instalador
-angular.module('gerenciadorErp').factory('installerAPI', function($http, config){
+angular.module('gerenciadorErp').factory('gestaoAPI', function($http, config){
   var config_http = {
                       headers: {
-                                'Authorization': "Digest username=\\\"admin\\\", uri=\\\"/installer/rest/clientes_rest/pasta_existe/\\\", response=\\\"9eb1d221e72522b40e3d60d0667afc94\\\"",
+                                  'Authorization': 'Basic ' +btoa(config.USER_REST + ':' +config.PASS_REST),
                                 },
-                      "withCredentials" : false,
+                      "withCredentials" : true,
                       "Content-Type"    : "application/json"
   };
   /**
@@ -15,7 +15,8 @@ angular.module('gerenciadorErp').factory('installerAPI', function($http, config)
     * @return $http response
   **/
   var _pastaExiste = function(pasta){
-    return $http.get(config.INSTALLER_URL + "clientes_rest/pasta_existe/"+pasta);
+    console.log(config_http);
+    return $http.get(config.INSTALLER_URL + "clientes_rest/pasta_existe/"+pasta, config_http);
   };
   return{
     pastaExiste: _pastaExiste,

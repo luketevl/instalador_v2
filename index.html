@@ -30,6 +30,7 @@
 
     <!-- INCLUDES SERVICES -->
     <script src="js/services/installerAPIService.js"></script>
+    <script src="js/services/pageService.js"></script>
 
     <!-- INCLUDES DIRECTIVES -->
     <script src="js/directives/ngIncludeReplaceDirective.js"></script>
@@ -39,11 +40,12 @@
     <script src="js/controllers/installController.js"></script>
     <script src="js/controllers/meuPlanoController.js"></script>
     <script src="js/controllers/checkoutController.js"></script>
+    <script src="js/controllers/listarSistemasController.js"></script>
 
   </head>
   <!-- Controller Principal -->
   <body layout="row" ng-controller="AppCtrl">
-    <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+    <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-1dp" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
       <md-toolbar class="md-hue-2">
         <span flex></span>
         <div layout="row" layout-align="start center">
@@ -84,7 +86,7 @@
             <md-icon md-svg-icon="navigation:ic_menu_24px" aria-label="Menu"></md-icon>
           </md-button>
           <h3>
-            {{menu.titulo}}Titulo
+            {{title}}
           </h3>
         </div>
       </md-toolbar>
