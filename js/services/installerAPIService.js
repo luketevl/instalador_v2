@@ -7,6 +7,7 @@ angular.module('gerenciadorErp').factory('installerAPI', function($http, config)
                       "withCredentials" : false,
                       "Content-Type"    : "application/json"
   };
+
   /**
     * Verifica se pasta existe
     * @author lukete
@@ -17,6 +18,7 @@ angular.module('gerenciadorErp').factory('installerAPI', function($http, config)
   var _pastaExiste = function(pasta){
     return $http.get(config.INSTALLER_URL + "clientes_rest/pasta_existe/"+pasta);
   };
+
   return{
     pastaExiste: _pastaExiste,
   };

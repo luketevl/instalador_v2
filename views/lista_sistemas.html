@@ -9,22 +9,23 @@
            <form name="regForm">
              <!-- SEARCH -->
              <section class="passo" >
-               <div layout="column">
-                 <md-input-container>
+               <div layout layout-sm="column">
+                 <md-input-container flex="80">
                    <label>E-mail</label>
                    <input type="email" ng-model="user.email_empresa" required>
                    <div ng-messages="passoDadosPrincipais.user.email_empresa.$error">
                      <div ng-message="type">Por Favor Preencha um e-mail válido</div>
                    </div>
                  </md-input-container>
+                   <md-input-container>
+                     <md-button ng-click="verificaDisponibilidade(user.email_empresa)" class="md-raised md-primary" ng-disabled="regForm.$invalid">Pesquisar</md-button>
+                   <md-input-container>
                </div>
-                 <md-button ng-click="verificaDisponibilidade(user.email_empresa)" class="md-raised md-primary" ng-disabled="regForm.$invalid">Pesquisar</md-button>
-
            </section><!-- end SEARCH -->
           </form>
 
-          <section layout="row">
-          <md-card flex="20">
+          <section layout="row" layout-xs="column">
+          <md-card>
               <md-card-content>
                 <h2>{{user.sistema}}lhenrique</h2>
               </md-card-content>
@@ -38,6 +39,5 @@
           </md-card-actions>
            </md-card>
          </section>
-
         </md-content>
       </div>

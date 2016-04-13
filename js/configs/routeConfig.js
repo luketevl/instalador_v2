@@ -20,6 +20,6 @@ angular.module('gerenciadorErp').config(function($routeProvider){
 
 
   // ROTA PADRAO para quando nao existir nenhuma
-  $routeProvider.otherwise({redirectTo: '/principal'});
+  $routeProvider.otherwise({redirectTo: '/checkout'});
 
 });

@@ -47,8 +47,13 @@
               <div layout layout-sm="column">
                 <md-input-container flex>
                   <label>Nome do Sistema</label>
-                  <input ng-model-options="{ }" ng-model="user.endereco_sistema" ng-keyup="verificaDisponibilidade(user.endereco_sistema)" required md-minlength="3" md-maxlength="16">
-                  <div class="hint">https://app.tagplus/com.br/{{user.endereco_sistema}}</div>
+                  <input type="text" ng-model="user.endereco_sistema" ng-keyup="verificaDisponibilidade(user.endereco_sistema)" ng-pattern="/^[a-zA-Z]+[0-9-_]?*$/g" required md-minlength="3" md-maxlength="16">
+                  <md-progress-linear md-mode="indeterminate" ng-show="loader"></md-progress-linear>
+                  <h5 class="hint sub-subhead">https://app.tagplus/com.br/{{user.endereco_sistema | lowercase}}</h5>
+
+                    <div ng-messages="passoSistema.user.endereco_sistema.$error.pattern">
+                      <div ng-message="ng-pattern">Nome Inválido</div>
+                    </div>
                   <div ng-messages="passoSistema.user.endereco_sistema.$error">
                     <div ng-message="required">Campo Obrigatório</div>
                     <div ng-message="md-maxlength">Preencha no máximo 16 caracteres</div>

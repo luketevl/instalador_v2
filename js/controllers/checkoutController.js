@@ -1,4 +1,4 @@
-angular.module('gerenciadorErp').controller('checkoutController', function($scope, PageService, installerAPI){
+angular.module('gerenciadorErp').controller('checkoutController', function($scope, $timeout, $filter, PageService, installerAPI){
   // Setando titulo da Pagina
    PageService.setTitle("Criar Sistema");
 
@@ -32,15 +32,23 @@ angular.module('gerenciadorErp').controller('checkoutController', function($scop
      $scope.dadosPassos[numPassoProximo].show = true;
    };
 
-   // Verifica se nome digitado esta disponivel
+   // Pesquisa disponibilidade do endereco_sistema
+  var searchTimeout;
    $scope.verificaDisponibilidade = function(pasta){
-     console.log(pasta);
-     installerAPI.pastaExiste(pasta).then(function(data){
-       $scope.disponivelSistema = (data)? true: false;
-       console.log(data);
-     }, function(error){
-       console.error(error);
-     });
+     if(pasta === undefined) return false;
+     $timeout.cancel(searchTimeout);
+     searchTimeout = $timeout(function() {
+       $scope.loader = true;
+       installerAPI.pastaExiste(pasta).then(function(data){
+         $scope.disponivelSistema = (data)? true: false;
+         $scope.loader = false;
+         console.log(data);
+       }, function(error){
+         console.error(error);
+         $scope.loader = false;
+       });
+     }, 1000);
    };
+
 
 });
