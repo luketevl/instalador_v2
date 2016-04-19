@@ -1,4 +1,4 @@
-angular.module('gerenciadorErp').controller('AppCtrl', ['$scope', '$mdBottomSheet', '$mdSidenav', '$mdDialog', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog) {
+angular.module('gerenciadorErp').controller('AppCtrl', ['$scope', '$mdBottomSheet', '$mdSidenav', '$mdDialog', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog, config) {
 
   // Toolbar search toggle
   $scope.toggleSearch = function(element) {
@@ -14,7 +14,7 @@ angular.module('gerenciadorErp').controller('AppCtrl', ['$scope', '$mdBottomShee
   $scope.menu = [{
     link: '#/checkout',
     title: 'Criar Sistema',
-    icon: 'action:ic_dashboard_24px' // we have to use Google's naming convention for the IDs of the SVGs in the spritesheet
+    icon: 'content:ic_add_circle_24px' // we have to use Google's naming convention for the IDs of the SVGs in the spritesheet
   }, {
     link: '#/lista_sistemas',
     title: 'Listar Sistemas',
@@ -23,45 +23,12 @@ angular.module('gerenciadorErp').controller('AppCtrl', ['$scope', '$mdBottomShee
   $scope.admin = [{
     link: '#/meu_plano',
     title: 'Meu Plano',
-    icon: 'action:ic_delete_24px'
+    icon: 'action:ic_dashboard_24px'
   }, {
-    link: '',
-    title: 'Migrar Plano',
-    icon: 'action:ic_settings_24px'
+    link: '#/planos',
+    title: 'Planos',
+    icon: 'action:ic_assignment_24px'
   }];
-
-  // Mock activity
-  $scope.activity = [{
-    what: 'Brunch this weekend?',
-    who: 'Ali Conners',
-    avatar: 'svg-1',
-    when: '3:08PM',
-    notes: " I'll be in your neighborhood doing errands"
-  }, {
-    what: 'Summer BBQ',
-    who: 'to Alex, Scott, Jennifer',
-    avatar: 'svg-2',
-    when: '3:08PM',
-    notes: "Wish I could come out but I'm out of town this weekend"
-  }, {
-    what: 'Oui Oui',
-    who: 'Sandra Adams',
-    avatar: 'svg-3',
-    when: '3:08PM',
-    notes: "Do you have Paris recommendations? Have you ever been?"
-  }, {
-    what: 'Birthday Gift',
-    who: 'Trevor Hansen',
-    avatar: 'svg-4',
-    when: '3:08PM',
-    notes: "Have any ideas of what we should get Heidi for her birthday?"
-  }, {
-    what: 'Recipe to try',
-    who: 'Brian Holt',
-    avatar: 'svg-5',
-    when: '3:08PM',
-    notes: "We should eat this: Grapefruit, Squash, Corn, and Tomatillo tacos"
-  }, ];
 
   // Bottomsheet & Modal Dialogs
   $scope.alert = '';
@@ -89,6 +56,10 @@ angular.module('gerenciadorErp').controller('AppCtrl', ['$scope', '$mdBottomShee
       });
   };
 
+  $scope.close = function () {
+        // Component lookup should always be available since we are not using `ng-if`
+        $mdSidenav('left').close()
+      };
 
 }]);
 

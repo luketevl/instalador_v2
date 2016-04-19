@@ -2,23 +2,62 @@
 angular.module('gerenciadorErp').factory('gestaoAPI', function($http, config){
   var config_http = {
                       headers: {
-                                  'Authorization': 'Basic ' +btoa(config.USER_REST + ':' +config.PASS_REST),
+                                  'Authorization': "Digest username=\\\"admin\\\", uri=\\\"/gaterp/rest/clientes_rest/cliente_extras_by_email/\\\", response=\\\"9eb1d221e72522b40e3d60d0667afc94\\\"",
                                 },
-                      "withCredentials" : true,
+                      "withCredentials" : false,
                       "Content-Type"    : "application/json"
   };
+
   /**
-    * Verifica se pasta existe
+    * Busca dados do sistema instalado
     * @author lukete
-    * @param pasta Nome da Pasta
-    * @since 09/03/16
+    * @param Email codificado
+    * @since 14/04/16
     * @return $http response
   **/
-  var _pastaExiste = function(pasta){
-    console.log(config_http);
-    return $http.get(config.INSTALLER_URL + "clientes_rest/pasta_existe/"+pasta, config_http);
+  var _getSistemasByEmail = function(email){
+    email = btoa(email);
+    return $http.get(config.GESTAO_URL + config.CAMINHO_REST_CLIENTE +"cliente_extras_by_email/email/"+email);
   };
+
+  /**
+    * Busca dados do cartao do cliente
+    * @author lukete
+    * @param COD cliente
+    * @since 18/04/16
+    * @return $http response
+  **/
+  var _getDadosCartaoByCod = function(cod){
+    return $http.get(config.GESTAO_URL + config.CAMINHO_REST_CLIENTE +"cliente_dados_cartao/cod/"+cod);
+  };
+
+  /**
+    * Busca dados dos SALDOS
+    * @author lukete
+    * @param COD cliente
+    * @since 18/04/16
+    * @return $http response
+  **/
+  var _getSaldoHistoricoByCod = function(cod){
+    return $http.get(config.GESTAO_URL + config.CAMINHO_REST_SALDO +"getHistoricoCliente/cod/"+cod);
+  };
+
+  /**
+    * Busca dados dos CONTRATOS
+    * @author lukete
+    * @param COD cliente
+    * @since 18/04/16
+    * @return $http response
+  **/
+  var _getContratosByCod = function(cod){
+    return $http.get(config.GESTAO_URL + config.CAMINHO_REST_CONTRATO +"get_contratos_by_cod_cliente/cod/"+cod);
+  };
+
+  // RETORNOS
   return{
-    pastaExiste: _pastaExiste,
+    getSistemasByEmail:     _getSistemasByEmail,
+    getDadosCartaoByCod:    _getDadosCartaoByCod,
+    getSaldoHistoricoByCod: _getSaldoHistoricoByCod,
+    getContratosByCod:      _getContratosByCod,
   };
 });

@@ -2,42 +2,32 @@
          <div class="md-toolbar-tools">
            <h1>Pesquisar</h1>
          </div>
-       </md-toolbar>
-
-       <div layout="column" flex>
-         <md-content layout-padding>
+   </md-toolbar>
+         <md-content layout-padding layout="column" flex>
            <form name="regForm">
              <!-- SEARCH -->
-             <section class="passo" >
-               <div layout layout-sm="column">
-                 <md-input-container flex="80">
-                   <label>E-mail</label>
-                   <input type="email" ng-model="user.email_empresa" required>
-                   <div ng-messages="passoDadosPrincipais.user.email_empresa.$error">
-                     <div ng-message="type">Por Favor Preencha um e-mail válido</div>
-                   </div>
+             <section  layout layout-sm="column">
+               <md-input-container flex="80">
+                 <label>E-mail</label>
+                 <input type="email" ng-model="user.email_empresa" required>
+                 <div ng-messages="passoDadosPrincipais.user.email_empresa.$error">
+                   <div ng-message="type">Por Favor Preencha um e-mail válido</div>
+                 </div>
+               </md-input-container>
+                 <md-input-container>
+                   <md-button ng-click="listaSistemasByEmail(user.email_empresa)" class="md-raised md-primary" ng-disabled="regForm.$invalid">Pesquisar</md-button>
                  </md-input-container>
-                   <md-input-container>
-                     <md-button ng-click="verificaDisponibilidade(user.email_empresa)" class="md-raised md-primary" ng-disabled="regForm.$invalid">Pesquisar</md-button>
-                   <md-input-container>
-               </div>
            </section><!-- end SEARCH -->
           </form>
 
           <section layout="row" layout-xs="column">
-          <md-card>
+          <md-card ng-repeat="sistema in user.sistemas">
               <md-card-content>
-                <h2>{{user.sistema}}lhenrique</h2>
+                <h2>{{sistema.pasta}}</h2>
               </md-card-content>
               <md-card-actions layout="row" layout-align="start center">
-            <md-button>Acessar</md-button>
-            <md-card-icon-actions>
-              <md-button class="md-icon-button" aria-label="icon">
-                <md-icon md-svg-icon="icon"></md-icon>
-              </md-button>
-            </md-card-icon-actions>
+            <a href="{{url}}{{sistema.pasta}}rtrindade" target="__blank"><md-button>Acessar</md-button></a>
           </md-card-actions>
            </md-card>
          </section>
         </md-content>
-      </div>

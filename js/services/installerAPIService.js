@@ -16,7 +16,7 @@ angular.module('gerenciadorErp').factory('installerAPI', function($http, config)
     * @return $http response
   **/
   var _pastaExiste = function(pasta){
-    return $http.get(config.INSTALLER_URL + "clientes_rest/pasta_existe/"+pasta);
+    return $http.get(config.INSTALLER_URL + "clientes_rest/pasta_existe/pasta/"+pasta);
   };
 
   return{

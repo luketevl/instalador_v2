@@ -106,7 +106,7 @@
               </md-input-container>
             </div>
             <md-button ng-click="tooglePassos(3, 2)" class="md-raised md-button">Voltar</md-button>
-           <md-button class="md-raised md-primary" ng-disabled="passoUsuarioSistema.$invalid">Instalar</md-button>
+           <md-button ng-click="instalar($event)" class="md-raised md-primary" ng-disabled="passoUsuarioSistema.$invalid">Instalar</md-button>
        </form>
      </section><!-- end PASSO1 03 -->
      </md-content>

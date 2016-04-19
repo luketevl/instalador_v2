@@ -1,16 +1,65 @@
-<section flex ng-controller="AppCtrl"  layout="row"  layout-xs="column">
+<md-toolbar layout="column">
+  <div class="md-toolbar-tools">
+    <h1>{{descricao_pagina | uppercase}}</h1>
+    <span flex></span>
+    <span>R$ {{contrato_dados.vr_total}}</span>
+  </div>
+</md-toolbar>
+<section flex layout="row"  layout-xs="column">
   <section>
     <md-card>
+      <!-- ADQUIRIR -->
        <md-card-content>
-         <h2>Informações de Pagamento</h2>
-           <md-list-item class="md-2-line" ng-repeat="item in admin" role="link" md-ink-ripple>
-             <md-icon md-svg-icon="{{item.icon}}" aria-label="{{item.title}}"></md-icon>
-             <div class="md-list-item-text">
-               <span class="md-body-2">{{item.title}}</span>
-             </div>
-             <md-divider></md-divider>
+         <md-list>
+           <md-list-item flex layout="column">
+               <h2>Quer continuar a alavancar sua empresa?</h2>
+                 <a href="#/planos">
+                   <md-button class="md-raised md-primary">Quero Escolher meu Plano</md-button>
+                 </a>
            </md-list-item>
-     </md-card-content>
+         </md-list>
+       </md-card-content><!-- end ADQUIRIR -->
+
+      <!-- Pagamento -->
+       <md-card-content ng-if="!contrato_teste">
+         <h2>Informações de Pagamento</h2>
+          <!-- CARTÃO -->
+          <md-list class="md-dense" flex="" ng-if="cartao_dados.numero_truncado">
+            <md-subheader class="md-no-sticky">Cartão de Crédito</md-subheader>
+             <md-list-item class="md-3-line" role="link" md-ink-ripple>
+              <md-icon md-svg-icon="action:ic_account_circle_24px" aria-label="cartao_dados.nome_portador"></md-icon>
+               <div class="md-list-item-text" layout="column">
+                 <p>Nome Portador</p>
+                 <h4>{{cartao_dados.nome_portador}}</h4>
+               </div>
+             </md-list-item>
+             <md-divider></md-divider>
+
+             <md-list-item class="md-3-line" role="link" md-ink-ripple>
+               <md-icon md-svg-icon="action:ic_credit_card_24px" aria-label="cartao_dados.numero_truncado"></md-icon>
+               <div class="md-list-item-text" layout="column">
+                 <p>Número Cartão</p>
+                 <h4>{{cartao_dados.numero_truncado}}</h4>
+               </div>
+             </md-list-item>
+             <md-divider></md-divider>
+
+             <md-list-item class="md-3-line" role="link" md-ink-ripple>
+               <md-icon md-svg-icon="action:ic_turned_in_24px" aria-label="cartao_dados.bandeira"></md-icon>
+               <div class="md-list-item-text" layout="column">
+                 <p>Bandeira Cartão</p>
+                 <h4>{{cartao_dados.bandeira | uppercase}}</h4>
+               </div>
+             </md-list-item>
+         </md-list><!-- end PAGAMENTO CARTÃO -->
+         <!-- BOLETO -->
+         <md-list class="md-dense" flex="" ng-if="!cartao_dados.numero_truncado">
+           <md-subheader class="md-no-sticky">Boleto Bancário</md-subheader>
+            <md-list-item class="md-3-line" role="link" md-ink-ripple>
+             <md-icon md-svg-icon="action:ic_view_column_24px" aria-label="cartao_dados.nome_portador"></md-icon>
+            </md-list-item>
+        </md-list><!-- end PAGAMENTO BOLETO -->
+     </md-card-content><!-- end Pagamento -->
     </md-card>
   </section>
 
@@ -19,10 +68,10 @@
         <md-card>
            <md-card-content>
              <h2>Dados Contrato</h2>
-             <hgroup layout="row">
-               <h4 class="md-body-1">Vencimento</h4>
-               <h5 class="md-body-3"><time datetime="2008-02-14 20:00">10/09/2016</time></h5>
-            </hgroup>
+             <span class="md-body-1">Situação:</span>
+             <span class="md-body-3">{{contrato_descricao}}</span>
+             <span class="md-body-1">Vencimento: </span>
+             <span class="md-body-3"><time datetime="2008-02-14 20:00">{{contrato_dados.data_inicio | date:'dd/MM/yyyy' }}</time></span>
          </md-card-content>
         </md-card>
       </section>
@@ -50,9 +99,9 @@
               <md-content layout="column" flex>
                 <h2>Débitos e Créditos</h2>
                   <md-virtual-repeat-container id="vertical-container">
-                    <section class="repeated-item" md-virtual-repeat="i in admin" flex>
+                    <section md-virtual-repeat="saldo in saldo_historico" class="repeated-item {{saldo.tipo}}" flex>
                         <div>
-                          {{i.title}}
+                          {{saldo.vr_total}}
                         </div>
                     </section>
                   </md-virtual-repeat-container>
