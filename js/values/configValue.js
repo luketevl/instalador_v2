@@ -13,7 +13,7 @@ angular.module('gerenciadorErp').value("config", {
     CAMINHO_REST_CLIENTE:   "clientes_rest/",
     CAMINHO_REST_SALDO:     "saldos_rest/",
     CAMINHO_REST_CONTRATO:  "contrato_rest/",
-
+    CAMINHO_REST_SERVICO:   "servicos_rest/",
 
   CLIENTES_URL: 'https://app.tagplus.com.br/',
 

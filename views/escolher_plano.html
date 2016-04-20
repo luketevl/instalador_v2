@@ -1,0 +1,39 @@
+<md-toolbar layout="column">
+    <div class="md-toolbar-tools">
+      <h1>{{titulo}}</h1>
+    </div>
+</md-toolbar>
+
+<md-content layout-padding>
+  <!-- ESCOLHA O PLANO -->
+  <section>
+    <form name="passoDadosPrincipais">
+      <md-grid-list
+          md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="6"
+          md-row-height-gt-md="1:1" md-row-height="2:2"
+          md-gutter="12px" md-gutter-gt-sm="8px"
+           >
+
+      <md-grid-tile class="green"
+          ng-repeat="servico in servicos"
+          md-rowspan="3" md-rowspan-sm="2" md-rowspan-md="2" md-colspan="2" md-colspan-sm="2" md-colspan-xs="2">
+        <md-grid-tile-header>
+          <h3>{{servico.descricao_resumida | uppercase}}</h3>
+        </md-grid-tile-header>
+        <md-grid-tile-content>
+          <md-list>
+            <md-list-item ng-repeat="(key, value) in servico.extra.funcionalidades track by $index">
+              <md-icon class="md-avatar-icon" md-svg-icon="action:ic_check_circle_24px"></md-icon>
+              <span>{{value}}</span>
+            </md-list-item>
+            </md-list>
+        </md-grid-tile-content>
+        <md-grid-tile-footer layout="column">
+          <md-button ng-click="" class="md-raised md-primary" ng-disabled="">Escolher</md-button>
+        </md-grid-tile-footer>
+
+      </md-grid-tile>
+    </md-grid-list>
+  </form>
+</section><!-- end ESCOLHA O PLANO -->
+</md-content>

@@ -53,11 +53,22 @@ angular.module('gerenciadorErp').factory('gestaoAPI', function($http, config){
     return $http.get(config.GESTAO_URL + config.CAMINHO_REST_CONTRATO +"get_contratos_by_cod_cliente/cod/"+cod);
   };
 
+  /**
+    * Busca dados dos CONTRATOS
+    * @author lukete
+    * @since 20/04/16
+    * @return $http response
+  **/
+  var _getPlanos = function(){
+    return $http.get(config.GESTAO_URL + config.CAMINHO_REST_SERVICO +"get_servicos/cod/");
+  };
+
   // RETORNOS
   return{
     getSistemasByEmail:     _getSistemasByEmail,
     getDadosCartaoByCod:    _getDadosCartaoByCod,
     getSaldoHistoricoByCod: _getSaldoHistoricoByCod,
     getContratosByCod:      _getContratosByCod,
+    getPlanos:              _getPlanos,
   };
 });
