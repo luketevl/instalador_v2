@@ -101,7 +101,7 @@
                   <md-virtual-repeat-container id="vertical-container">
                     <section md-virtual-repeat="saldo in saldo_historico" class="repeated-item {{saldo.tipo}}" flex>
                         <div>
-                          {{saldo.vr_total}}
+                          R$ {{saldo.vr_total | number: 2}}
                         </div>
                     </section>
                   </md-virtual-repeat-container>

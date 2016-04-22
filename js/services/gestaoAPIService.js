@@ -60,7 +60,7 @@ angular.module('gerenciadorErp').factory('gestaoAPI', function($http, config){
     * @return $http response
   **/
   var _getPlanos = function(){
-    return $http.get(config.GESTAO_URL + config.CAMINHO_REST_SERVICO +"get_servicos/cod/");
+    return $http.get(config.GESTAO_URL + config.CAMINHO_REST_SERVICO +"get_servicos/ativo/1");
   };
 
   // RETORNOS

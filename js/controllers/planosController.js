@@ -8,8 +8,46 @@
   // Funcation
   function PlanosCtrl($scope, PageService, gestaoAPI){
     PageService.setTitle('Planos');
-    $scope.servicos = [];
-    $scope.titulo   = 'Escolha o Plano';
+    $scope.servicos     = [];
+    $scope.dados_plano  = [];
+    $scope.dadosPassos  = {
+      1 : {
+        titulo: 'Escolha o Plano',
+        show: true
+      },
+      2 : {
+        titulo: 'Escolha a Recorrência',
+        show: false
+      },
+    };
+    $scope.titulo       = $scope.dadosPassos[1].titulo;
+
+       // Muda titulo da sessao e toggle elemento
+       $scope.tooglePassos = function(numPassoAtual, numPassoProximo, plano){
+         // Passo Antigo
+         $scope.dadosPassos[numPassoAtual].show = false;
+
+         // Passo novo
+         $scope.titulo            = $scope.dadosPassos[numPassoProximo].titulo;
+         $scope.dadosPassos[numPassoProximo].show = true;
+         if(numPassoProximo == 2){
+           $scope.dados_plano.plano = plano;
+           console.log(plano);
+
+           // Montando recorrencia
+           $scope.dados_plano.recorrencias = [
+                                                   {
+                                                     descricao: 'Plano Mensal',
+                                                     valor: plano.vr_hora_servico,
+                                                   },
+                                                   {
+                                                   descricao: 'Plano Anual',
+                                                   valor: (plano.vr_hora_servico * 12),
+                                                 },
+                                             ];
+         }
+
+       };
 
     // BUSCA DADOS SERVIÇOS
     gestaoAPI.getPlanos().then(function(response){

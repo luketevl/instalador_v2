@@ -67,20 +67,20 @@
         <div class="md-body-2">TAGPLUS</div>
       </md-toolbar>
       <md-list>
-        <a ng-repeat="item in menu"  href="{{item.link}}"  ng-click="close()">
+        <a ng-repeat="item in menu"  href="{{item.link}}" class="md-accent" ng-click="close()">
           <md-list-item class="md-2-line" role="link" md-ink-ripple>
-            <md-icon md-svg-icon="{{item.icon}}" aria-label="{{item.title}}"></md-icon>
               <div class="md-list-item-text">
+              <md-icon md-svg-icon="{{item.icon}}" aria-label="{{item.title}}"></md-icon>
               <span class="md-body-2">{{item.title}}</span>
             </div>
           </md-list-item>
       </a>
         <md-divider></md-divider>
         <md-subheader  class="md-no-sticky">Planos</md-subheader>
-          <a ng-repeat="item in admin"  href="{{item.link}}" ng-click="close()">
+          <a ng-repeat="item in admin"  href="{{item.link}}" class="md-accent" ng-click="close()">
             <md-list-item class="md-2-line" role="link" md-ink-ripple>
-              <md-icon md-svg-icon="{{item.icon}}" aria-label="{{item.title}}"></md-icon>
               <div class="md-list-item-text">
+                <md-icon md-svg-icon="{{item.icon}}" aria-label="{{item.title}}"></md-icon>
                 <span class="md-body-2">{{item.title}}</span>
               </div>
             </md-list-item>

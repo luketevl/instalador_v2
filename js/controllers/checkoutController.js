@@ -3,7 +3,6 @@ angular.module('gerenciadorErp').controller('checkoutController', function($scop
    PageService.setTitle("Criar Sistema");
 
    // Variaveis
-   $scope.titulo            = 'Novo Sistema';
    $scope.disponivelSistema = false;
    $scope.dadosPassos = {
      1 : {
@@ -19,7 +18,7 @@ angular.module('gerenciadorErp').controller('checkoutController', function($scop
        show: false
      },
    };
-
+   $scope.titulo       = $scope.dadosPassos[1].titulo;
    // Funcoes
 
    // Muda titulo da sessao e toggle elemento

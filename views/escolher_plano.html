@@ -3,37 +3,44 @@
       <h1>{{titulo}}</h1>
     </div>
 </md-toolbar>
+<section flex layout="row"  layout-xs="column" ng-show="dadosPassos[1].show">
+<!-- SERVICOS -->
+   <md-content  ng-repeat="servico in servicos">
+        <md-card>
+         <h2 class="md-headline" layout="column" layout-align="end center">{{servico.descricao_resumida | uppercase}}</h2>
+          <!-- CARTÃO -->
+          <md-list class="md-dense">
+            <md-subheader class="md-no-sticky" layout="column" layout-align="end end">
+              <span class="md-headline">R$ {{servico.vr_hora_servico | number: 2}}</span>
+              <span> / mês</span>
+            </md-subheader>
+            <md-divider></md-divider>
+             <md-list-item class="md-3-line" role="link" md-ink-ripple ng-repeat="(index, value) in servico.extra.funcionalidades track by $index">
+               <div class="md-list-item-text" layout="row" layout-align="start">
+                 <p><md-icon md-svg-icon="action:ic_check_circle_24px" aria-label="cartao_dados.nome_portador"></md-icon></p>
+                 <p>{{value}}</p>
+                 <span flex></span>
+               </div>
+               <md-divider></md-divider>
+             </md-list-item>
 
-<md-content layout-padding>
-  <!-- ESCOLHA O PLANO -->
-  <section>
-    <form name="passoDadosPrincipais">
-      <md-grid-list
-          md-cols-xs="1" md-cols-sm="2" md-cols-md="4" md-cols-gt-md="6"
-          md-row-height-gt-md="1:1" md-row-height="2:2"
-          md-gutter="12px" md-gutter-gt-sm="8px"
-           >
+         </md-list>
+         <md-button ng-click="tooglePassos(1, 2, servico)" class="md-raised md-primary">Escolher</md-button>
+       </md-card>
+ </md-content><!-- end SERVICOS -->
+</section>
 
-      <md-grid-tile class="green"
-          ng-repeat="servico in servicos"
-          md-rowspan="3" md-rowspan-sm="2" md-rowspan-md="2" md-colspan="2" md-colspan-sm="2" md-colspan-xs="2">
-        <md-grid-tile-header>
-          <h3>{{servico.descricao_resumida | uppercase}}</h3>
-        </md-grid-tile-header>
-        <md-grid-tile-content>
-          <md-list>
-            <md-list-item ng-repeat="(key, value) in servico.extra.funcionalidades track by $index">
-              <md-icon class="md-avatar-icon" md-svg-icon="action:ic_check_circle_24px"></md-icon>
-              <span>{{value}}</span>
-            </md-list-item>
-            </md-list>
-        </md-grid-tile-content>
-        <md-grid-tile-footer layout="column">
-          <md-button ng-click="" class="md-raised md-primary" ng-disabled="">Escolher</md-button>
-        </md-grid-tile-footer>
-
-      </md-grid-tile>
-    </md-grid-list>
-  </form>
-</section><!-- end ESCOLHA O PLANO -->
-</md-content>
+<!-- RECORRENCIA -->
+<section layout="row" layout-align="center center" ng-show="dadosPassos[2].show">
+   <md-content ng-repeat="recorrencia in dados_plano.recorrencias" flex-gt-sm="90" flex="50">
+        <md-card layout="column">
+         <h2 class="md-headline" layout="column" layout-align="center center">{{recorrencia.descricao | uppercase}}</h2>
+         <md-subheader class="md-no-sticky" layout="column" layout-align="end end">
+           <span class="md-headline">R$ {{recorrencia.valor | number: 2}}</span>
+           <span> / mês</span>
+         </md-subheader>
+         <md-button ng-click="tooglePassos(1, 2, recorrencia)" class="md-raised md-primary">Escolher</md-button>
+         <md-button ng-click="tooglePassos(2, 1)" class="md-raised md-button">Voltar</md-button>
+       </md-card>
+ </md-content>
+</section><!-- end RECORRENCIA -->
