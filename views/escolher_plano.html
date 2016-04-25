@@ -11,8 +11,9 @@
           <!-- CARTÃO -->
           <md-list class="md-dense">
             <md-subheader class="md-no-sticky" layout="column" layout-align="end end">
-              <span class="md-headline">R$ {{servico.vr_hora_servico | number: 2}}</span>
+              <span class="md-headline">R$ {{ (servico.valorPromocionalMensal)| number: 2}}</span>
               <span> / mês</span>
+              <ui-porcentagem original="{{servico.vr_hora_servico}}" promocional="{{servico.valorPromocionalMensal}}" ng-if="servico.vr_hora_servico != servico.valorPromocionalMensal"></ui-porcentagem>
             </md-subheader>
             <md-divider></md-divider>
              <md-list-item class="md-3-line" role="link" md-ink-ripple ng-repeat="(index, value) in servico.extra.funcionalidades track by $index">
@@ -37,7 +38,8 @@
          <h2 class="md-headline" layout="column" layout-align="center center">{{recorrencia.descricao | uppercase}}</h2>
          <md-subheader class="md-no-sticky" layout="column" layout-align="end end">
            <span class="md-headline">R$ {{recorrencia.valor | number: 2}}</span>
-           <span> / mês</span>
+           <span> / {{recorrencia.label}}</span>
+           <ui-porcentagem original="{{recorrencia.original}}" promocional="{{recorrencia.valor}}" ng-if="recorrencia.original != recorrencia.valor"></ui-porcentagem>
          </md-subheader>
          <md-button ng-click="tooglePassos(1, 2, recorrencia)" class="md-raised md-primary">Escolher</md-button>
          <md-button ng-click="tooglePassos(2, 1)" class="md-raised md-button">Voltar</md-button>

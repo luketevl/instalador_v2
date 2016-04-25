@@ -3,11 +3,12 @@
   angular.module('gerenciadorErp').controller('PlanosCtrl', PlanosCtrl);
 
   // injector
-  PlanosCtrl.$inject = ['$scope' ,'PageService', 'gestaoAPI'];
+  PlanosCtrl.$inject = ['$scope' ,'PageService', 'gestaoAPI', 'resolveServicos', '$routeParams'];
 
   // Funcation
-  function PlanosCtrl($scope, PageService, gestaoAPI){
+  function PlanosCtrl($scope, PageService, gestaoAPI, resolveServicos, $routeParams){
     PageService.setTitle('Planos');
+    $scope.app.codCliente = $routeParams.codCliente;
     $scope.servicos     = [];
     $scope.dados_plano  = [];
     $scope.dadosPassos  = {
@@ -32,17 +33,20 @@
          $scope.dadosPassos[numPassoProximo].show = true;
          if(numPassoProximo == 2){
            $scope.dados_plano.plano = plano;
-           console.log(plano);
-
+           PageService.setServico = plano;
            // Montando recorrencia
            $scope.dados_plano.recorrencias = [
                                                    {
                                                      descricao: 'Plano Mensal',
-                                                     valor: plano.vr_hora_servico,
+                                                     valor: plano.valorPromocionalMensal,
+                                                     original: plano.vr_hora_servico,
+                                                     label: 'mes',
                                                    },
                                                    {
                                                    descricao: 'Plano Anual',
-                                                   valor: (plano.vr_hora_servico * 12),
+                                                   valor: plano.valorPromocionalAnual,
+                                                   original: plano.vr_hora_servico * 10,
+                                                   label: 'ano',
                                                  },
                                              ];
          }
@@ -50,14 +54,24 @@
        };
 
     // BUSCA DADOS SERVIÇOS
-    gestaoAPI.getPlanos().then(function(response){
+        resolveServicos.data.forEach(function(el){
+          el.valorPromocionalMensal = el.vr_hora_servico;
+          el.valorPromocionalAnual  = el.vr_hora_servico * 10;
 
-        response.data.forEach(function(el){
           // Verifica se existe posicao
           if(el.extra !== undefined && el.extra !== null && el.extra){
             // Tratamento de erro para parser json invalido
             try{
               el.extra = JSON.parse(el.extra);
+              console.log(el.extra.promocoes[$routeParams.codPromocao]);
+              if(el.extra.promocoes[$routeParams.codPromocao] !== undefined ){
+                if(el.extra.promocoes[$routeParams.codPromocao].mensal > 0){
+                  el.valorPromocionalMensal  = el.extra.promocoes[$routeParams.codPromocao].mensal;
+                }
+                if(el.extra.promocoes[$routeParams.codPromocao].anual > 0){
+                  el.valorPromocionalAnual   = el.extra.promocoes[$routeParams.codPromocao].anual;
+                }
+              }
             }
             catch(ex){
               console.log(ex);
@@ -71,8 +85,5 @@
           $scope.servicos.push(el);
         });
       console.log($scope.servicos);
-    }, function(error){
-      console.log(error);
-    });
   }
 })();

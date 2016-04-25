@@ -7,7 +7,7 @@
   function config($routeProvider){
 
     // ROTA MEU PLANO
-    $routeProvider.when('/meu_plano', {
+    $routeProvider.when('/meu_plano/:codCliente', {
       templateUrl: 'views/meu_plano.html',
       controller: 'meuPlanoController',
     });
@@ -25,9 +25,24 @@
     });
 
     // ROTA PLANOS
-    $routeProvider.when('/planos', {
+    $routeProvider.when('/planos/:codCliente/:codPromocao', {
       templateUrl: 'views/escolher_plano.html',
       controller: 'PlanosCtrl',
+      resolve : {
+        resolveServicos: function(gestaoAPI){
+          return gestaoAPI.getPlanos();
+        },
+      }
+    });
+
+    $routeProvider.when('/planos/:codCliente', {
+      templateUrl: 'views/escolher_plano.html',
+      controller: 'PlanosCtrl',
+      resolve : {
+        resolveServicos: function(gestaoAPI){
+          return gestaoAPI.getPlanos();
+        },
+      }
     });
 
     // ROTA PADRAO para quando nao existir nenhuma
