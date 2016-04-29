@@ -17,7 +17,7 @@ angular.module('gerenciadorErp').factory('gestaoAPI', function($http, config){
   **/
   var _getSistemasByEmail = function(email){
     email = btoa(email);
-    return $http.get(config.GESTAO_URL + config.CAMINHO_REST_CLIENTE +"cliente_extras_by_email/email/"+email);
+    return $http.get(config.GESTAO_URL_REST + config.CAMINHO_REST_CLIENTE +"cliente_extras_by_email/email/"+email);
   };
 
   /**
@@ -28,7 +28,7 @@ angular.module('gerenciadorErp').factory('gestaoAPI', function($http, config){
     * @return $http response
   **/
   var _getDadosCartaoByCod = function(cod){
-    return $http.get(config.GESTAO_URL + config.CAMINHO_REST_CLIENTE +"cliente_dados_cartao/cod/"+cod);
+    return $http.get(config.GESTAO_URL_REST + config.CAMINHO_REST_CLIENTE +"cliente_dados_cartao/cod/"+cod);
   };
 
   /**
@@ -39,7 +39,18 @@ angular.module('gerenciadorErp').factory('gestaoAPI', function($http, config){
     * @return $http response
   **/
   var _getSaldoHistoricoByCod = function(cod){
-    return $http.get(config.GESTAO_URL + config.CAMINHO_REST_SALDO +"getHistoricoCliente/cod/"+cod);
+    return $http.get(config.GESTAO_URL_REST + config.CAMINHO_REST_SALDO +"getHistoricoCliente/cod/"+cod);
+  };
+
+  /**
+    * Busca saldo ATUAL
+    * @author lukete
+    * @param COD cliente
+    * @since 28/04/16
+    * @return $http response
+  **/
+  var _getSaldoByCod = function(cod){
+    return $http.get(config.GESTAO_URL_REST + config.CAMINHO_REST_SALDO +"getSaldo/cod/"+cod);
   };
 
   /**
@@ -50,7 +61,7 @@ angular.module('gerenciadorErp').factory('gestaoAPI', function($http, config){
     * @return $http response
   **/
   var _getContratosByCod = function(cod){
-    return $http.get(config.GESTAO_URL + config.CAMINHO_REST_CONTRATO +"get_contratos_by_cod_cliente/cod/"+cod);
+    return $http.get(config.GESTAO_URL_REST + config.CAMINHO_REST_CONTRATO +"get_contratos_by_cod_cliente/cod/"+cod);
   };
 
   /**
@@ -60,9 +71,18 @@ angular.module('gerenciadorErp').factory('gestaoAPI', function($http, config){
     * @return $http response
   **/
   var _getPlanos = function(){
-    return $http.get(config.GESTAO_URL + config.CAMINHO_REST_SERVICO +"get_servicos/ativo/1");
+    return $http.get(config.GESTAO_URL_REST + config.CAMINHO_REST_SERVICO +"get_servicos/ativo/1");
   };
 
+  /**
+    * Busca URL do boleto
+    * @author lukete
+    * @since 26/04/16
+    * @return $http response
+  **/
+  var _getUrlBoleto = function(dados){
+    return $http.post(config.GESTAO_URL_REST + config.CAMINHO_REST_CLIENTE +"getUrlBoleto", dados);
+  };
   // RETORNOS
   return{
     getSistemasByEmail:     _getSistemasByEmail,
@@ -70,5 +90,7 @@ angular.module('gerenciadorErp').factory('gestaoAPI', function($http, config){
     getSaldoHistoricoByCod: _getSaldoHistoricoByCod,
     getContratosByCod:      _getContratosByCod,
     getPlanos:              _getPlanos,
+    getUrlBoleto:           _getUrlBoleto,
+    getSaldoByCod:          _getSaldoByCod,
   };
 });

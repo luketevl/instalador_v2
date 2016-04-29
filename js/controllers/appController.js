@@ -1,4 +1,8 @@
 angular.module('gerenciadorErp').controller('AppCtrl', ['$scope', '$mdBottomSheet', '$mdSidenav', '$mdDialog', function($scope, $mdBottomSheet, $mdSidenav, $mdDialog, config) {
+  // VARIAVEIS
+  $scope.app          = [];
+  $scope.app.contrato = [];
+  $scope.app.servico  = [];
 
   // Toolbar search toggle
   $scope.toggleSearch = function(element) {

@@ -2,7 +2,7 @@
   <div class="md-toolbar-tools">
     <h1>{{descricao_pagina | uppercase}}</h1>
     <span flex></span>
-    <span>R$ {{contrato_dados.vr_total}}</span>
+    <span ng-if="contrato_dados.vr_total > 0">R$ {{contrato_dados.vr_total}}</span>
   </div>
 </md-toolbar>
 <section flex layout="row"  layout-xs="column">
@@ -13,7 +13,7 @@
          <md-list>
            <md-list-item flex layout="column">
                <h2>Quer continuar a alavancar sua empresa?</h2>
-                 <a href="#/planos">
+                 <a href="#/planos/{{app.codCliente}}">
                    <md-button class="md-raised md-primary">Quero Escolher meu Plano</md-button>
                  </a>
            </md-list-item>
@@ -76,6 +76,9 @@
         </md-card>
       </section>
 
+      <!-- DEBITO ATUAL -->
+      <ui-saldo-gestao valor="{{saldoAtual}}" frase="Seu saldo será utilizado caso deseje trocar de plano ou de recorrência!"></ui-saldo-gestao> <!-- end DEBITO ATUAL -->
+
       <section>
         <md-card>
            <md-card-content>
@@ -119,11 +122,10 @@
                     </div>
                   </md-input-container>
                  <md-input-container flex>
-                   <md-button ng-click="" class="md-raised md-primary" ng-disabled="formAvulso.$invalid">Gerar Pagamento Avulso</md-button>
+                   <md-button ng-click="ultimoPasso()" class="md-raised md-primary" ng-disabled="formAvulso.$invalid">Gerar Pagamento Avulso</md-button>
                  </md-input-container>
               </form>
           </section><!-- end PAGAMENTO AVULSO -->
-
              </md-card-content>
         </md-card>
       </section>

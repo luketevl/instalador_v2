@@ -34,9 +34,12 @@
     <script src="js/services/gestaoAPIService.js"></script>
     <script src="js/services/pageService.js"></script>
     <script src="js/services/toastService.js"></script>
+    <script src="js/services/funcoesService.js"></script>
 
     <!-- INCLUDES DIRECTIVES -->
     <script src="js/directives/ngIncludeReplaceDirective.js"></script>
+    <script src="js/directives/uiPorcentagemDirective.js"></script>
+    <script src="js/directives/uiSaldoGestaoDirective.js"></script>
 
     <!-- INCLUDES FILTERS -->
     <script src="js/filters/inputFilter.js"></script>
@@ -48,6 +51,7 @@
     <script src="js/controllers/checkoutController.js"></script>
     <script src="js/controllers/listarSistemasController.js"></script>
     <script src="js/controllers/planosController.js"></script>
+    <script src="js/controllers/pagamentoController.js"></script>
 
   </head>
   <!-- Controller Principal -->
@@ -67,7 +71,7 @@
         <div class="md-body-2">TAGPLUS</div>
       </md-toolbar>
       <md-list>
-        <a ng-repeat="item in menu"  href="{{item.link}}" class="md-accent" ng-click="close()">
+        <a ng-repeat="item in menu"  href="{{item.link}}/{{app.codCliente}}" class="md-accent" ng-click="close()">
           <md-list-item class="md-2-line" role="link" md-ink-ripple>
               <div class="md-list-item-text">
               <md-icon md-svg-icon="{{item.icon}}" aria-label="{{item.title}}"></md-icon>
@@ -77,7 +81,7 @@
       </a>
         <md-divider></md-divider>
         <md-subheader  class="md-no-sticky">Planos</md-subheader>
-          <a ng-repeat="item in admin"  href="{{item.link}}" class="md-accent" ng-click="close()">
+          <a ng-repeat="item in admin"  href="{{item.link}}/{{app.codCliente}}" class="md-accent" ng-click="close()">
             <md-list-item class="md-2-line" role="link" md-ink-ripple>
               <div class="md-list-item-text">
                 <md-icon md-svg-icon="{{item.icon}}" aria-label="{{item.title}}"></md-icon>

@@ -1,0 +1,20 @@
+<md-content layout="column">
+  <md-card>
+    <md-card-content>
+      <h2>Saldo Atual</h2>
+      <md-list>
+      <md-card-title>
+        <md-card-title-media>
+          <div class="md-media-sm card-media" layout layout-align="center center">
+            <md-icon md-svg-icon="editor:ic_monetization_on_24px"></md-icon>
+          </div>
+        </md-card-title-media>
+        <md-card-title-text>
+          <span class="md-headline">R$ {{valor | number: 2}}</span>
+          <span class="md-subhead description" ng-if="frase != ''">{{frase}}</span>
+        </md-card-title-text>
+      </md-card-title>
+      </md-list>
+    </md-card-content>
+  </md-card>
+</md-content>

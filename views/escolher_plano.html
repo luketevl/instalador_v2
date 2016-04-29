@@ -3,7 +3,7 @@
       <h1>{{titulo}}</h1>
     </div>
 </md-toolbar>
-<section flex layout="row"  layout-xs="column" ng-show="dadosPassos[1].show">
+<section flex layout="row"  layout-xs="column" ng-if="dadosPassos[1].show">
 <!-- SERVICOS -->
    <md-content  ng-repeat="servico in servicos">
         <md-card>
@@ -31,17 +31,19 @@
  </md-content><!-- end SERVICOS -->
 </section>
 
+<ui-saldo-gestao  ng-if="dadosPassos[2].show" valor="{{saldoAtual}}" frase="Seu saldo será utilizado caso deseje trocar de plano ou de recorrência!"></ui-saldo-gestao>
+
 <!-- RECORRENCIA -->
-<section layout="row" layout-align="center center" ng-show="dadosPassos[2].show">
+<section layout="row" layout-align="center center" ng-if="dadosPassos[2].show">
    <md-content ng-repeat="recorrencia in dados_plano.recorrencias" flex-gt-sm="90" flex="50">
         <md-card layout="column">
-         <h2 class="md-headline" layout="column" layout-align="center center">{{recorrencia.descricao | uppercase}}</h2>
+         <h2 class="md-headline" layout="column" layout-align="center center">{{recorrencia.descricao_recorrencia | uppercase}}</h2>
          <md-subheader class="md-no-sticky" layout="column" layout-align="end end">
-           <span class="md-headline">R$ {{recorrencia.valor | number: 2}}</span>
-           <span> / {{recorrencia.label}}</span>
-           <ui-porcentagem original="{{recorrencia.original}}" promocional="{{recorrencia.valor}}" ng-if="recorrencia.original != recorrencia.valor"></ui-porcentagem>
+           <span class="md-headline">R$ {{recorrencia.valor_recorrencia | number: 2}}</span>
+           <span> / {{recorrencia.label_recorrencia}}</span>
+           <ui-porcentagem original="{{recorrencia.original_recorrencia}}" promocional="{{recorrencia.valor}_recorrencia}" ng-if="recorrencia.original_recorrencia != recorrencia.valor_recorrencia"></ui-porcentagem>
          </md-subheader>
-         <md-button ng-click="tooglePassos(1, 2, recorrencia)" class="md-raised md-primary">Escolher</md-button>
+         <md-button ng-click="passoFinal(recorrencia)" class="md-raised md-primary">Escolher</md-button>
          <md-button ng-click="tooglePassos(2, 1)" class="md-raised md-button">Voltar</md-button>
        </md-card>
  </md-content>

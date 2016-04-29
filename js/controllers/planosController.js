@@ -3,14 +3,15 @@
   angular.module('gerenciadorErp').controller('PlanosCtrl', PlanosCtrl);
 
   // injector
-  PlanosCtrl.$inject = ['$scope' ,'PageService', 'gestaoAPI', 'resolveServicos', '$routeParams'];
+  PlanosCtrl.$inject = ['$scope' ,'PageService', 'gestaoAPI', 'resolveServicos', '$routeParams', '$location', 'config'];
 
   // Funcation
-  function PlanosCtrl($scope, PageService, gestaoAPI, resolveServicos, $routeParams){
+  function PlanosCtrl($scope, PageService, gestaoAPI, resolveServicos, $routeParams, $location, config){
     PageService.setTitle('Planos');
     $scope.app.codCliente = $routeParams.codCliente;
     $scope.servicos     = [];
     $scope.dados_plano  = [];
+    var codCliente = ($scope.app.codCliente !== undefined) ? $scope.app.codCliente : $routeParams.codCliente;
     $scope.dadosPassos  = {
       1 : {
         titulo: 'Escolha o Plano',
@@ -30,29 +31,67 @@
 
          // Passo novo
          $scope.titulo            = $scope.dadosPassos[numPassoProximo].titulo;
-         $scope.dadosPassos[numPassoProximo].show = true;
+
          if(numPassoProximo == 2){
            $scope.dados_plano.plano = plano;
-           PageService.setServico = plano;
+           PageService.setServico(plano);
            // Montando recorrencia
            $scope.dados_plano.recorrencias = [
                                                    {
-                                                     descricao: 'Plano Mensal',
-                                                     valor: plano.valorPromocionalMensal,
-                                                     original: plano.vr_hora_servico,
-                                                     label: 'mes',
+                                                     descricao_recorrencia: 'Plano Mensal',
+                                                     valor_recorrencia: plano.valorPromocionalMensal,
+                                                     original_recorrencia: plano.vr_hora_servico,
+                                                     label_recorrencia: 'mes',
+                                                     isMensal_recorrencia: true,
                                                    },
                                                    {
-                                                   descricao: 'Plano Anual',
-                                                   valor: plano.valorPromocionalAnual,
-                                                   original: plano.vr_hora_servico * 10,
-                                                   label: 'ano',
+                                                   descricao_recorrencia: 'Plano Anual',
+                                                   valor_recorrencia: plano.valorPromocionalAnual,
+                                                   original_recorrencia: plano.vr_hora_servico * 10,
+                                                   label_recorrencia: 'ano',
+                                                   isMensal_recorrencia: false,
                                                  },
                                              ];
+                                             /*
+            var contrato = PageService.getContrato();
+            if(contrato.recorrencia == config.CONTRATO_RECORRENCIA_ANUAL){
+              $scope.passoFinal($scope.dados_plano.recorrencias[1]);
+            } */
          }
-
+        $scope.dadosPassos[numPassoProximo].show = true;
        };
 
+       // Ultimo passo, define se vai ser pagamento ou precessar atualizacao
+       $scope.passoFinal = function(recorrencia){
+        PageService.setRecorrencia(recorrencia);
+
+        var contrato = PageService.getContrato();
+        if(contrato.recorrencia_automatica == config.CONTRATO_RECORRENCIA_BOLETO_AUTOMATICO || contrato.recorrencia_automatica == config.CONTRATO_RECORRENCIA_CARTAO_AUTOMATICO){
+        $scope.passoFinal($scope.dados_plano.recorrencias[1]);
+        }
+        else{
+          $location.path('pagamento/'+codCliente);
+        }
+       };
+
+       var trataContrato = function(){
+         var contrato = PageService.getContrato();
+           if(!contrato.length){
+             // Buscar Contrato
+             // Busca dados do Contrato
+
+             gestaoAPI.getContratosByCod(codCliente).then(function(response){
+               if(response.data.status){
+                 contrato = response.data.contratos[0];
+                 PageService.setContrato(contrato);
+               }
+             }, function(error){
+               console.log(error);
+             });
+           }
+       };
+
+       trataContrato();
     // BUSCA DADOS SERVIÇOS
         resolveServicos.data.forEach(function(el){
           el.valorPromocionalMensal = el.vr_hora_servico;
@@ -85,5 +124,17 @@
           $scope.servicos.push(el);
         });
       console.log($scope.servicos);
+
+      // Busca SALDO DO CLIENTE
+      if(PageService.getSaldo() == undefined){
+        gestaoAPI.getSaldoByCod($scope.app.codCliente).then(function(response){
+          console.log(response);
+          PageService.setSaldo(response.data);
+          $scope.saldoAtual = PageService.getSaldo();
+        }, function(error){
+          console.log(error);
+        });
+      }
+      $scope.saldoAtual = PageService.getSaldo();
   }
 })();

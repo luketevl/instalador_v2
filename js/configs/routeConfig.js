@@ -45,8 +45,16 @@
       }
     });
 
+    $routeProvider.when('/pagamento/:codCliente', {
+      templateUrl: 'views/pagamento/index.html',
+      controller: 'pagamentoCtrl',
+    });
+
+    $routeProvider.when('/sucesso/plano', {
+      templateUrl: 'views/sucesso_plano.html',
+    });
+
     // ROTA PADRAO para quando nao existir nenhuma
     $routeProvider.otherwise({redirectTo: '/checkout'});
-
   }
 })();

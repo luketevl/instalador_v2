@@ -1,0 +1,25 @@
+<md-toolbar layout="column">
+    <div class="md-toolbar-tools">
+      <h1>{{titulo}}</h1>
+    </div>
+</md-toolbar>
+  <ui-saldo-gestao valor="{{saldoAtual}}" frase="Seu saldo será utilizado caso deseje trocar de plano ou de recorrência!"></ui-saldo-gestao>
+<section flex layout="row"  layout-xs="column">
+<!-- PAGAMENTO -->
+   <md-content  ng-repeat="pagamento in pagamentos">
+        <md-card>
+         <h2 class="md-headline" layout="column" layout-align="end center">{{pagamento.titulo | uppercase}}</h2>
+          <!-- CARTÃO -->
+          <md-list class="md-dense">
+            <md-divider></md-divider>
+             <md-list-item class="md-3-line" role="link" md-ink-ripple>
+               <div class="md-list-item-text" layout="row" layout-align="center">
+                 <p><md-icon md-svg-icon="{{pagamento.icone}}" aria-label="pagamento.titulo"></md-icon></p>
+               </div>
+               <md-divider></md-divider>
+             </md-list-item>
+         </md-list>
+         <md-button ng-click="abrirLink(pagamento)" class="md-raised md-primary">{{pagamento.botao}}</md-button>
+       </md-card>
+ </md-content><!-- end PAGAMENTO -->
+</section>
